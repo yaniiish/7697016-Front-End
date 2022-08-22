@@ -1,19 +1,50 @@
+// Récupération des pièces depuis le fichier JSON
+const reponse = await fetch("pieces-autos.json");
+const pieces = await reponse.json();
+
+// Création des éléments et remplissage du texte ou de la source de l'image
 const ampoule = pieces[0];
 
-const imageElement = document.createElement("img");
-imageElement.src = ampoule.image;
+// Création des fiches produits
+for (let i = 0; i < pieces.length; i++) {
+	// Récupération de l'élément du DOM qui accueillera les fiches
+	const sectionFiches = document.querySelector(".fiches");
 
-const nomElement = document.createElement("h2");
-nomElement.innerText = ampoule.nom;
+	// Création d’une balise dédiée à une pièce automobile
+	const pieceElement = document.createElement("article");
 
-const prixElement = document.createElement("p");
-prixElement.innerText = ampoule.prix;
+	// On crée l’élément img.
+	const imageElement = document.createElement("img");
+	// On accède à l’indice i de la liste pieces pour configurer la source de l’image.
+	imageElement.src = pieces[i].image;
+	// On rattache l’image à pieceElement (la balise article)
+	pieceElement.appendChild(imageElement);
 
-const categorieElement = document.createElement("p");
-categorieElement.innerText = ampoule.categorie;
+	// Idem pour le nom, le prix et la catégorie ...
 
-const sectionFiches = document.querySelector('.fiches');
-sectionFiches.appendChild(imageElement);
-sectionFiches.appendChild(nomElement);
-sectionFiches.appendChild(prixElement);
-sectionFiches.appendChild(categorieElement);
+	const nomElement = document.createElement("h2");
+	nomElement.innerText = pieces[i].nom;
+	pieceElement.appendChild(nomElement);
+
+	const prixElement = document.createElement("p");
+	prixElement.innerText = "Prix : " + pieces[i].prix + " €"
+		+ " ("
+		+ (pieces[i].prix < 35 ? "€" : "€€€")
+		+ ")";
+	pieceElement.appendChild(prixElement);
+
+	const categorieElement = document.createElement("p");
+	categorieElement.innerText = pieces[i].categorie ?? "(aucune catégorie)";
+	pieceElement.appendChild(categorieElement);
+
+	const descriptionElement = document.createElement("p");
+	descriptionElement.innerText = pieces[i].description ?? "Pas de description pour le moment.";
+	pieceElement.appendChild(descriptionElement);
+
+	const disponibiliteElement = document.createElement("p");
+	disponibiliteElement.innerText = pieces[i].disponibilite ? "En stock" : "Rupture de stock";
+	pieceElement.appendChild(disponibiliteElement);
+
+	// On rattache la balise article à la section fiches
+	sectionFiches.appendChild(pieceElement);
+}
