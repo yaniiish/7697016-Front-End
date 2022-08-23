@@ -1,7 +1,6 @@
 // Récupération des pièces depuis le fichier JSON
 const reponse = await fetch("pieces-autos.json");
 const pieces = await reponse.json();
-
 // Création des éléments et remplissage du texte ou de la source de l'image
 const ampoule = pieces[0];
 
@@ -92,4 +91,15 @@ for (let i = 0; i < noms.length; i++){
 }
 console.log(noms);
 
-const abordable = document.createElement("ul")
+// Création de l'élément ul
+const abordablesElement = document.createElement("ul");
+
+// Création et rattachement des éléments li
+for (let i = 0; i < noms.length; i++) {
+     const nomElement = document.createElement("li");
+     nomElement.innerText = noms[i];
+     abordablesElement.appendChild(nomElement);
+}
+
+// Rattachement de toute la liste à la page
+document.querySelector(".abordables").appendChild(abordablesElement);
