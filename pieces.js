@@ -48,3 +48,48 @@ for (let i = 0; i < pieces.length; i++) {
 	// On rattache la balise article à la section fiches
 	sectionFiches.appendChild(pieceElement);
 }
+
+const boutonTrier = document.querySelector(".btn-trier");
+boutonTrier.addEventListener("click", function () {
+const piecesReordonnees = Array.from(pieces);
+piecesReordonnees.sort(function(a, b) {
+    return a.prix - b.prix
+})
+console.log(piecesReordonnees);
+});
+
+
+const boutonFiltrer = document.querySelector(".btn-filtrer");
+boutonFiltrer.addEventListener("click", function () {
+    const piecesFiltrees = pieces.filter(function(piece) {
+        return piece.prix <= 35;
+    });
+    console.log(piecesFiltrees);
+});
+
+const boutonDescription = document.querySelector(".btn-description")
+boutonDescription.addEventListener("click", function(){
+    const pieceDescription = pieces.filter(function(piece){
+        return piece.description
+    })
+    console.log(pieceDescription);
+})
+
+const boutonTrierDecroissant = document.querySelector(".btn-trierDecroissant")
+boutonTrierDecroissant.addEventListener("click", function () {
+    const piecesReordonneesDecroissant = Array.from(pieces);
+    piecesReordonneesDecroissant.sort(function(a, b){
+        return b.prix - a.prix
+    })
+    console.log(piecesReordonneesDecroissant);
+})
+
+const noms = pieces.map(piece => piece.nom);
+for (let i = 0; i < noms.length; i++){
+    if (pieces[i] > 35){
+        noms.splice(i, 1)
+    }
+}
+console.log(noms);
+
+const abordable = document.createElement("ul")
