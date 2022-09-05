@@ -165,4 +165,5 @@ inputPrixMax.addEventListener("input", function () {
 	// Effacement de l'écran et regénération de la page avec les pieces filtrées uniquement
 	document.querySelector(".fiches").innerHTML = "";
 	genererPieces(piecesFiltrees);
+	
 });
