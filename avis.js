@@ -28,8 +28,3 @@ export function ajoutListenersAvis() {
 	}
 }
 
-var progression;
-var fatigue = true;
-while(fatigue){
-    progression += 0;
-}
